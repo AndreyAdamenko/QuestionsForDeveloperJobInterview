@@ -10,6 +10,12 @@ public string GetUserNameWithEmail(User[] users)
 
 ```
 
+Мой вариант:
+```C#
+public string GetUserNameWithEmail(User[] users) => users.FirstOrDefault(q => q.Email != null).Name;
+```
+
+
 ## 2
 
 ```C#
@@ -22,7 +28,6 @@ public string[] Filter(string[] words)
 
 ```
 
-
 ## 3
 
 ```C#
@@ -34,7 +39,18 @@ public string ReadFirstLine(string path)
 
 ```
 
+Мой вариант:
+```C#
+public string ReadFirstLine(string path)
+{
+    using (var file = new StreamReader(path))
+    {
+        var file = new StreamReader(path);
+        return file.ReadLine();
+    }
+}
 
+```
 
 ## 4
 
@@ -43,6 +59,12 @@ if (result < 3)
     return true;
 else
     return false;
+
+```
+
+Мой вариант:
+```C#
+return result < 3
 
 ```
 
@@ -59,6 +81,16 @@ public IEnumerable<User> Filter(IEnumerable<User> users, string email, int? minA
 
 ```
 
+Мой вариант:
+```C#
+public IEnumerable<User> Filter(IEnumerable<User> users, string email, int? minAge)
+{
+    return users.Where(q =>
+        (email == null || q.Email == email)
+        && (minAge == null || q.Age >= minAge.Value));
+}
+
+```
 
 ## 6
 
@@ -71,6 +103,20 @@ catch (Exception ex)
 {
     _logger.Error(ex);
     throw ex;
+}
+
+```
+
+Мой вариант:
+```C#
+try
+{
+    //some code
+}
+catch (Exception ex)
+{
+    _logger.Error(ex);
+    throw;
 }
 
 ```
